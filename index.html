@@ -1,144 +1,270 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Gemini CLI = Riccardo's favorites</title>
+		<title>Gemini CLI = Riccardo's favorites (Client-Side)</title>
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/reset.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/reveal.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/theme/black.css"
-    />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/reset.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/reveal.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/theme/black.css">
 
-    <!-- Theme used for syntax highlighted code -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/highlight/monokai.css"
-    />
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/highlight/monokai.css">
 
-    <style>
-      .reveal section p {
-        font-size: 0.8em;
-      }
-      .reveal section ul {
-        font-size: 0.8em;
-      }
-      .reveal .slides {
-        text-align: left;
-      }
-      .reveal h1 {
-        font-size: 1.6em;
-      }
-
-      .card {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 20px;
-      }
-      .card h3 {
-        margin-top: 0;
-      }
-      .card a {
-        color: #42affa;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="reveal">
-      <div class="slides">
-          <h1>Gemini CLI = Riccardo's favorites</h1>
-          <p>A collection of extensions, resources, and MCPs.</p>
-        </section>
-
-        <section>
-            <h2>What is an Extension?</h2>
-            <p>Extensions add new capabilities to the Gemini CLI, allowing you to customize your workflow and integrate with other tools.</p>
-        </section>
-
-        <section>
-            <h2>What is a Resource?</h2>
-            <p>Resources are external references, documentation, and guides that help you get the most out of Gemini CLI.</p>
-        </section>
-
-        <section>
-            <h2>What is an MCP?</h2>
-            <p>Model Context Protocol (MCP) servers provide context and tools to AI models, enabling them to interact with your local environment and data.</p>
-        </section>
-
+        <!-- JS-YAML Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
         
-        <section>
-          <h2>Extensions</h2>
-          
-          <div class="card">
-            <h3><a href="https://github.com/GitLab-Ecosystem/Gemini-CLI-Extensions" target="_blank">GitLab Extensions</a></h3>
-            <p>Gemini help me here</p>
-          </div>
-          
-        </section>
-         
-        <section>
-          <h2>Main Resources</h2>
-          
-          <div class="card">
-            <h3><a href="https://geminicli.com/" target="_blank">Gemini CLI resources</a></h3>
-            <p>A site gfulfull of Gemini CLI goodies, from docs to semi-vetted extensions</p>
-          </div>
-          
-        </section>
-         
-        <section>
-          <h2>MCPs</h2>
-          
-          <div class="card">
-            <h3>
-              <a href="https://github.com/microsoft/playwright-mcp" target="_blank">MCP: browser</a>
-            </h3>
-            <p>Navigate browser via commands MCP, also take screenshots</p>
-            
-            <pre><code data-trim data-noescape class="json">
-"playwright": {
-  "command": "npx",
-  "args": [
-    "@playwright/mcp@latest"
-  ]
-}
+        <style>
+            .reveal section p {
+                font-size: 0.8em;
+            }
+            .reveal section ul {
+                font-size: 0.8em;
+            }
+            .reveal .slides {
+                text-align: left;
+            }
+            .reveal h1 {
+                font-size: 1.6em;
+            }
+            .card {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            .card h3 {
+                margin-top: 0;
+            }
+            .card a {
+                color: #42affa;
+            }
+            /* Menu Styles */
+            .menu-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                margin-top: 50px;
+            }
+            .menu-item {
+                padding: 30px;
+                border-radius: 15px;
+                text-align: center;
+                text-decoration: none !important;
+                color: white !important;
+                transition: transform 0.2s;
+                display: block;
+            }
+            .menu-item:hover {
+                transform: scale(1.05);
+            }
+            .menu-item h3 {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+            .bg-blue { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
+            .bg-green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+            .bg-purple { background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%); }
+            .bg-orange { background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); }
 
-                        </code></pre>
-            
-          </div>
-          
-        </section>
-        
-      </div>
-    </div>
+            .back-to-menu {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                font-size: 0.5em;
+                z-index: 100;
+                opacity: 0.5;
+            }
+            .back-to-menu a {
+                color: white;
+                text-decoration: none;
+            }
+        </style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <!-- Slide 1: Title -->
+				<section>
+					<h1>Gemini CLI = Riccardo's favorites</h1>
+					<p>A collection of extensions, resources, and MCPs.</p>
+                    <p style="font-size: 0.6em; margin-top: 50px; opacity: 0.7;">Use Arrow Keys to Navigate ↘️</p>
+                    <p style="font-size: 0.4em; opacity: 0.5;">Client-side rendered from YAML</p>
+				</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/reveal.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/notes/notes.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/markdown/markdown.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/highlight/highlight.js"></script>
-    <script>
-      // More info about initialization & config:
-      // - https://revealjs.com/initialization/
-      // - https://revealjs.com/config/
-      Reveal.initialize({
-        hash: true,
+                <!-- Slide 2: Menu -->
+                <section id="menu">
+                    <h2>Menu</h2>
+                    <div class="menu-grid">
+                        <a href="#/extensions" class="menu-item bg-blue">
+                            <h3>Extensions</h3>
+                            <p>Power up your CLI</p>
+                        </a>
+                        <a href="#/resources" class="menu-item bg-green">
+                            <h3>Resources</h3>
+                            <p>Learn & Explore</p>
+                        </a>
+                        <a href="#/mcp" class="menu-item bg-purple">
+                            <h3>MCPs</h3>
+                            <p>Context & Tools</p>
+                        </a>
+                        <a href="#/custom-commands" class="menu-item bg-orange">
+                            <h3>Custom Commands</h3>
+                            <p>Automate tasks</p>
+                        </a>
+                    </div>
+                </section>
 
-        // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
-      });
-    </script>
-  </body>
+                <!-- Extensions Stack -->
+				<section id="extensions">
+                    <section>
+                        <h2>What is an Extension?</h2>
+                        <p>Extensions add new capabilities to the Gemini CLI, allowing you to customize your workflow and integrate with other tools.</p>
+                        <p><a href="#/menu">⬆ Back to Menu</a></p>
+                    </section>
+                    <!-- Items will be injected here -->
+				</section>
+
+                <!-- Resources Stack -->
+				<section id="resources">
+                    <section>
+                        <h2>What is a Resource?</h2>
+                        <p>Resources are external references, documentation, and guides that help you get the most out of Gemini CLI.</p>
+                        <p><a href="#/menu">⬆ Back to Menu</a></p>
+                    </section>
+                    <!-- Items will be injected here -->
+				</section>
+
+                <!-- MCP Stack -->
+				<section id="mcp">
+                    <section>
+                        <h2>What is an MCP?</h2>
+                        <p>Model Context Protocol (MCP) servers provide context and tools to AI models, enabling them to interact with your local environment and data.</p>
+                        <p><a href="#/menu">⬆ Back to Menu</a></p>
+                    </section>
+                    <!-- Items will be injected here -->
+				</section>
+
+                <!-- Custom Commands Stack -->
+                <section id="custom-commands">
+                    <section>
+                        <h2>What are Custom Commands?</h2>
+                        <p>Define your own shortcuts and complex workflows using simple YAML configurations.</p>
+                        <p><a href="#/menu">⬆ Back to Menu</a></p>
+                    </section>
+                    <!-- Items will be injected here -->
+                </section>
+
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/reveal.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/notes/notes.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/markdown/markdown.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/highlight/highlight.js"></script>
+		<script>
+            // Logic to fetch YAML and render slides
+            async function loadAndRender() {
+                try {
+                    const response = await fetch('data/riccs_favorites.yaml?t=' + Date.now());
+                    if (!response.ok) throw new Error('Failed to load YAML');
+                    const text = await response.text();
+                    const data = jsyaml.load(text);
+
+                    // Render Extensions
+                    const extContainer = document.getElementById('extensions');
+                    if (data.extensions) {
+                        data.extensions.forEach(ext => {
+                            const section = document.createElement('section');
+                            section.innerHTML = `
+                                <div class="card">
+                                    <h3><a href="${ext.url}" target="_blank">${ext.name}</a></h3>
+                                    <p>${ext.description}</p>
+                                </div>
+                            `;
+                            extContainer.appendChild(section);
+                        });
+                    }
+
+                    // Render Resources
+                    const resContainer = document.getElementById('resources');
+                    if (data.main_resources) {
+                        data.main_resources.forEach(res => {
+                            const section = document.createElement('section');
+                            section.innerHTML = `
+                                <div class="card">
+                                    <h3><a href="${res.url}" target="_blank">${res.name}</a></h3>
+                                    <p>${res.description}</p>
+                                </div>
+                            `;
+                            resContainer.appendChild(section);
+                        });
+                    }
+
+                    // Render MCPs
+                    const mcpContainer = document.getElementById('mcp');
+                    if (data.MCP) {
+                        data.MCP.forEach(mcp => {
+                            const section = document.createElement('section');
+                            let mcpContent = `
+                                <div class="card">
+                                    <h3><a href="${mcp.url}" target="_blank">MCP: ${mcp.family}</a></h3>
+                                    <p>${mcp.description}</p>
+                            `;
+                            if (mcp.mcp_snippet) {
+                                mcpContent += `
+                                    <pre><code data-trim data-noescape class="json">
+${mcp.mcp_snippet}
+                                    </code></pre>
+                                `;
+                            }
+                            mcpContent += `</div>`;
+                            section.innerHTML = mcpContent;
+                            mcpContainer.appendChild(section);
+                        });
+                    }
+
+                    // Render Custom Commands
+                    const cmdContainer = document.getElementById('custom-commands');
+                    if (data.custom_commands) {
+                        data.custom_commands.forEach(cmd => {
+                            const section = document.createElement('section');
+                            section.innerHTML = `
+                                <div class="card">
+                                    <h3>${cmd.name}</h3>
+                                    <p>${cmd.description}</p>
+                                    <pre><code data-trim data-noescape class="bash">
+${cmd.command}
+                                    </code></pre>
+                                </div>
+                            `;
+                            cmdContainer.appendChild(section);
+                        });
+                    }
+
+                } catch (e) {
+                    console.error("Error loading data:", e);
+                    // Fallback or error message on slide
+                    const container = document.querySelector('.slides');
+                    const errorSlide = document.createElement('section');
+                    errorSlide.innerHTML = `<h2>Error loading data</h2><p>${e.message}</p>`;
+                    container.appendChild(errorSlide);
+                }
+
+                // Initialize Reveal.js after DOM modifications
+                Reveal.initialize({
+                    hash: true,
+                    controls: true,
+                    controlsTutorial: true,
+                    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+                });
+            }
+
+            // Run
+            loadAndRender();
+
+		</script>
+	</body>
 </html>

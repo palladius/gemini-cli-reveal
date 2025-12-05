@@ -1,6 +1,8 @@
 # gemini-cli-reveal
 A reveal.js repo with my favorite Gemini CLI tools, subtools, lessons leart and so on.
 
+🔗 **Live Presentation**: https://palladius.github.io/gemini-cli-reveal/
+
 This deck intends to be a collection of slides that I can use to present:
 
 1. Gemini CLI fetaures, like Custom Commands, extensions and so on.
