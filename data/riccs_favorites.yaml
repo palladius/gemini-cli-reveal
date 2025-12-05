@@ -1,0 +1,27 @@
+# Riccardo's favorite extensions
+extensions:
+  - name: GitLab Extensions
+    url: https://github.com/GitLab-Ecosystem/Gemini-CLI-Extensions
+    description: "Gemini help me here"
+main_resources:
+  - name: Gemini CLI resources
+    description: "A site gfulfull of Gemini CLI goodies, from docs to semi-vetted extensions"
+    url: https://geminicli.com/
+# Riccardo's favorite MCP
+MCP:
+  - url: https://github.com/microsoft/playwright-mcp
+    family: browser
+    description: "Navigate browser via commands MCP, also take screenshots"
+    mcp_snippet: |
+      "playwright": {
+        "command": "npx",
+        "args": [
+          "@playwright/mcp@latest"
+        ]
+      }
+
+# Riccardo's favorite Custom Commands
+custom_commands:
+  - name: "git-commit"
+    description: "A custom command to generate conventional commits"
+    command: "gemini git-commit"

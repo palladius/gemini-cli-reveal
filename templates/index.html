@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>Gemini CLI = Riccardo's favorites</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/reset.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/reveal.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/theme/black.css"
+    />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/highlight/monokai.css"
+    />
+
+    <style>
+      .reveal section p {
+        font-size: 0.8em;
+      }
+      .reveal section ul {
+        font-size: 0.8em;
+      }
+      .reveal .slides {
+        text-align: left;
+      }
+      .reveal h1 {
+        font-size: 1.6em;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .card h3 {
+        margin-top: 0;
+      }
+      .card a {
+        color: #42affa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+          <h1>Gemini CLI = Riccardo's favorites</h1>
+          <p>A collection of extensions, resources, and MCPs.</p>
+        </section>
+
+        <section>
+            <h2>What is an Extension?</h2>
+            <p>Extensions add new capabilities to the Gemini CLI, allowing you to customize your workflow and integrate with other tools.</p>
+        </section>
+
+        <section>
+            <h2>What is a Resource?</h2>
+            <p>Resources are external references, documentation, and guides that help you get the most out of Gemini CLI.</p>
+        </section>
+
+        <section>
+            <h2>What is an MCP?</h2>
+            <p>Model Context Protocol (MCP) servers provide context and tools to AI models, enabling them to interact with your local environment and data.</p>
+        </section>
+
+        {% if data.extensions %}
+        <section>
+          <h2>Extensions</h2>
+          {% for ext in data.extensions %}
+          <div class="card">
+            <h3><a href="{{ ext.url }}" target="_blank">{{ ext.name }}</a></h3>
+            <p>{{ ext.description }}</p>
+          </div>
+          {% endfor %}
+        </section>
+        {% endif %} {% if data.main_resources %}
+        <section>
+          <h2>Main Resources</h2>
+          {% for res in data.main_resources %}
+          <div class="card">
+            <h3><a href="{{ res.url }}" target="_blank">{{ res.name }}</a></h3>
+            <p>{{ res.description }}</p>
+          </div>
+          {% endfor %}
+        </section>
+        {% endif %} {% if data.MCP %}
+        <section>
+          <h2>MCPs</h2>
+          {% for mcp in data.MCP %}
+          <div class="card">
+            <h3>
+              <a href="{{ mcp.url }}" target="_blank">MCP: {{ mcp.family }}</a>
+            </h3>
+            <p>{{ mcp.description }}</p>
+            {% if mcp.mcp_snippet %}
+            <pre><code data-trim data-noescape class="json">
+{{ mcp.mcp_snippet }}
+                        </code></pre>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </section>
+        {% endif %}
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.0/plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>
