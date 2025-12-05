@@ -12,4 +12,6 @@ Note the slides should have two ingredients:
 
 It's very important that if I'm travelling, and a friend suggests a new MCP, I can just add it to the yaml file, and the slides will be updated automatically. A commit should trigger the rigeneration as well, possibly via GH Actions. 
 
-This might not be present as v1.0 feature, but should eventually be there
+This might not be present as v1.0 feature, but should eventually be there.
+
+* Ensure that the online page (from README.md) WORKS!
